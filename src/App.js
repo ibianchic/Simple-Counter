@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [segundos, setSegundos] = useState(0);
+
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      setSegundos(prevSegundos => prevSegundos + 1);
+    }, 1000);
+
+    return () => clearInterval(intervalo);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-clock" viewBox="0 0 16 16">
+          <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+        </svg> 
+        <span className="numero">{Math.floor(segundos / 10000) % 10}</span>   
+
+        <span className="numero">{Math.floor(segundos / 1000) % 10}</span>
+        
+        <span className="numero">{Math.floor(segundos / 100) % 10}</span>
+
+        <span className="numero">{Math.floor(segundos / 10) % 10}</span>
+
+        <span className="numero">{Math.floor(segundos) % 10}</span>
+      </h1>
     </div>
   );
 }
